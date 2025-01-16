@@ -75,10 +75,13 @@ streamlit run app.py
 #### **Question: "What are the duties of the President?"**
 **Response:**
 *"Based on Article 40, the President of Kazakhstan ensures the unity of the nation and coordinates all state powers."*
+![First request](image/president.png)
 
-#### **Question: "What does Article 1 define?"**
+
+#### **Question: "What does Article 90 define?"**
 **Response:**
 *"Article 1 states that the Republic of Kazakhstan is a democratic, secular, and social state prioritizing individual rights and freedoms."*
+![Second request](image/90.png)
 
 ---
 
