@@ -95,6 +95,7 @@ Use the following command to execute all tests:
 ```bash
 pytest test_app.py
 ```
+![Test](image/test.png)
 
 ##### **Tested Features**
 1. **Embedding Generation**:
