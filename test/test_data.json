@@ -1,0 +1,29 @@
+{
+    "tests": [
+        {
+            "id": 1,
+            "input": "What is AI?",
+            "expected_output": "AI stands for Artificial Intelligence, which refers to systems capable of performing tasks that typically require human intelligence."
+        },
+        {
+            "id": 2,
+            "input": "Explain the purpose of embeddings.",
+            "expected_output": "Embeddings are numerical representations of text or data used to capture semantic meaning and facilitate similarity searches."
+        },
+        {
+            "id": 3,
+            "input": "What is Streamlit?",
+            "expected_output": "Streamlit is an open-source app framework used to create data-driven web applications in Python with minimal effort."
+        },
+        {
+            "id": 4,
+            "input": "How does ChromaDB store data?",
+            "expected_output": "ChromaDB stores data as embeddings in a vector database, allowing for efficient similarity search and retrieval."
+        },
+        {
+            "id": 5,
+            "input": "Generate an embedding for 'Hello world'.",
+            "expected_output": "Embedding successfully generated for input: 'Hello world'."
+        }
+    ]
+}
