@@ -5,42 +5,45 @@ import streamlit as st
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app import process_file, generate_embedding, collection
+from app import generate_embedding, collection
 
 
 class TestLlamaChatbot(unittest.TestCase):
     def setUp(self):
-        """Настройка перед каждым тестом"""
-        if "file_data" not in st.session_state:
-            st.session_state["file_data"] = []
+        """Setup before each test"""
+        if "messages" not in st.session_state:
+            st.session_state["messages"] = []
 
     def tearDown(self):
-        """Очистка после каждого теста"""
+        """Cleanup after each test"""
         if os.path.exists("mock_file.txt"):
             os.remove("mock_file.txt")
 
-    def test_process_file_valid(self):
-        """Тестирование функции process_file с корректным файлом"""
-        with open("mock_file.txt", "wb") as mock_file:
-            mock_file.write(b"Sample text for testing.")
-
-        with open("mock_file.txt", "rb") as mock_file:
-            process_file(mock_file)
-
-        uploaded_files = [file["file_name"] for file in st.session_state["file_data"]]
-        self.assertIn("mock_file.txt", uploaded_files, "File not found in session_state['file_data']")
-
-        result = collection.get(ids=["mock_file.txt"])
-        self.assertIsNotNone(result, "File data not added to collection")
-        self.assertIn("Sample text for testing.", result["documents"], "File content missing in collection")
-
     def test_generate_embedding(self):
-        """Тестирование функции generate_embedding"""
+        """Test embedding generation"""
         sample_text = "Sample embedding test text."
         embedding = generate_embedding(sample_text)
 
         self.assertIsInstance(embedding, list, "Embedding is not a list")
-        self.assertTrue(len(embedding) > 0, "Embedding list is empty")
+        self.assertEqual(len(embedding), 2048, "Embedding size is not correct")
+
+    def test_mongo_collection(self):
+        """Test MongoDB collection insertion and retrieval"""
+        test_document = {
+            "id": "test_article",
+            "text": "This is a test article.",
+            "embedding": [0.1] * 2048
+        }
+
+        collection.insert_one(test_document)
+        result = collection.find_one({"id": "test_article"})
+
+        self.assertIsNotNone(result, "Document not found in the collection")
+        self.assertEqual(result["text"], test_document["text"], "Text does not match")
+        self.assertEqual(result["embedding"], test_document["embedding"], "Embedding does not match")
+
+        # Clean up
+        collection.delete_one({"id": "test_article"})
 
 
 if __name__ == "__main__":
