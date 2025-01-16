@@ -50,6 +50,8 @@ Before running the chatbot, ensure the Constitution is loaded into the database.
 ```bash
 python load_constitution.py
 ```
+![Loading](image/DBload.png)
+
 This script will:
 - Parse the `constitution.txt` file.
 - Split the content into sections or articles.
